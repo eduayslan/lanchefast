@@ -25,6 +25,6 @@ class ProdutoSeeder extends Seeder
             'valor' => 8.50,
         ]);
 
-        // Produto::factory()->count(15)->create();
+            // Produto::factory()->count(15)->create();
     }
 }
