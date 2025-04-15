@@ -21,10 +21,9 @@ class Index extends Component
     public function render()
     {
         $clientes = Cliente::where('nome', 'like', "%{$this->search}%")
-        ->orWhere('email', 'like', "%{$this->search}%")
-        ->orWhere('cpf', 'like', "%{$this->search}%")
-        ->paginate($this->perPage);
-
+            ->orWhere('email', 'like', "%{$this->search}%")
+            ->orWhere('cpf', 'like', "%{$this->search}%")
+            ->paginate($this->perPage);
         return view('livewire.clientes.index', compact('clientes'));
     }
 

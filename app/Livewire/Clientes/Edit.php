@@ -7,13 +7,17 @@ use Livewire\Component;
 
 class Edit extends Component
 {
-    public $clienteId, $nome, $email, $telefone;
+    public Cliente $cliente;
+    public string $nome = '';
+    public string $cpf = '';
+    public string $email = '';
+    public string $telefone = '';
 
-    public function mount($id)
+    public function mount(Cliente $cliente)
     {
-        $cliente = Cliente::findOrFail($id);
-        $this->clienteId = $cliente->id;
+        $this->cliente = $cliente;
         $this->nome = $cliente->nome;
+        $this->cpf = $cliente->cpf;
         $this->email = $cliente->email;
         $this->telefone = $cliente->telefone;
     }
@@ -21,16 +25,20 @@ class Edit extends Component
     public function atualizar()
     {
         $this->validate([
-            'nome' => 'required|string',
+            'nome' => 'required|string|max:255',
+            'cpf' => 'required|string|max:14',
             'email' => 'required|email',
+            'telefone' => 'required|string',
         ]);
 
-        Cliente::findOrFail($this->clienteId)->update([
+        $this->cliente->update([
             'nome' => $this->nome,
+            'cpf' => $this->cpf,
             'email' => $this->email,
             'telefone' => $this->telefone,
         ]);
 
+        session()->flash('message', 'Cliente atualizado com sucesso!');
         return redirect()->route('clientes.index');
     }
 

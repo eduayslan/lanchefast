@@ -1,62 +1,54 @@
-<div class="container mt-5">
-    <div class="card shadow-sm">
-        <div class="card-header bg-success text-white">
-            <h4 class="mb-0">Cadastro de Cliente</h4>
-        </div>
+<div class="d-flex justify-content-center align-items-center mt-5" style="background-color: #f7f7f7;"> <!-- Cor de fundo alterada -->
+    <div class="card shadow-lg bg-dark text-light border-0" style="width: 100%; max-width: 600px;"> <!-- Cor do card alterada -->
         <div class="card-body">
-            @if (session()->has('mensagem'))
-                <div class="alert alert-success">
-                    {{ session('mensagem') }}
-                </div>
-            @endif
+            <h4 class="card-title mb-4 text-center text-warning"> <!-- Cor do título alterada -->
+                <i class="bi bi-person-plus-fill"></i> Novo Cliente
+            </h4>
 
-            <form wire:submit.prevent="salvar">
-                {{-- Nome --}}
+            <form wire:submit.prevent="store">
                 <div class="mb-3">
-                    <label for="nome" class="form-label">Nome</label>
-                    <input type="text" wire:model.defer="nome" class="form-control" id="nome" placeholder="Nome completo">
-                    @error('nome') <div class="text-danger small">{{ $message }}</div> @enderror
+                    <label class="form-label text-light"><i class="bi bi-person"></i> Nome</label>
+                    <input type="text" wire:model="nome" class="form-control">
+                    @error('nome') <small class="text-danger">{{ $message }}</small> @enderror
                 </div>
 
-                {{-- Endereço --}}
                 <div class="mb-3">
-                    <label for="endereco" class="form-label">Endereço</label>
-                    <input type="text" wire:model.defer="endereco" class="form-control" id="endereco" placeholder="Rua, número, bairro">
-                    @error('endereco') <div class="text-danger small">{{ $message }}</div> @enderror
+                    <label class="form-label text-light"><i class="bi bi-house"></i> Endereço</label>
+                    <input type="text" wire:model="endereco" class="form-control">
+                    @error('endereco') <small class="text-danger">{{ $message }}</small> @enderror
                 </div>
 
-                {{-- Telefone --}}
                 <div class="mb-3">
-                    <label for="telefone" class="form-label">Telefone</label>
-                    <input type="text" wire:model.defer="telefone" class="form-control" id="telefone" placeholder="(99) 99999-9999">
-                    @error('telefone') <div class="text-danger small">{{ $message }}</div> @enderror
+                    <label class="form-label text-light"><i class="bi bi-telephone"></i> Telefone</label>
+                    <input type="text" wire:model="telefone" class="form-control">
+                    @error('telefone') <small class="text-danger">{{ $message }}</small> @enderror
                 </div>
 
-                {{-- CPF --}}
                 <div class="mb-3">
-                    <label for="cpf" class="form-label">CPF</label>
-                    <input type="text" wire:model.defer="cpf" class="form-control" id="cpf" placeholder="000.000.000-00">
-                    @error('cpf') <div class="text-danger small">{{ $message }}</div> @enderror
+                    <label class="form-label text-light"><i class="bi bi-credit-card"></i> CPF</label>
+                    <input type="text" wire:model="cpf" class="form-control">
+                    @error('cpf') <small class="text-danger">{{ $message }}</small> @enderror
                 </div>
 
-                {{-- Email --}}
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" wire:model.defer="email" class="form-control" id="email" placeholder="email@exemplo.com">
-                    @error('email') <div class="text-danger small">{{ $message }}</div> @enderror
+                    <label class="form-label text-light"><i class="bi bi-envelope"></i> Email</label>
+                    <input type="email" wire:model="email" class="form-control">
+                    @error('email') <small class="text-danger">{{ $message }}</small> @enderror
                 </div>
 
-                {{-- Senha --}}
-                <div class="mb-3">
-                    <label for="senha" class="form-label">Senha</label>
-                    <input type="password" wire:model.defer="senha" class="form-control" id="senha" placeholder="Digite uma senha segura">
-                    @error('senha') <div class="text-danger small">{{ $message }}</div> @enderror
+                <div class="mb-4">
+                    <label class="form-label text-light"><i class="bi bi-lock"></i> Senha</label>
+                    <input type="password" wire:model="senha" class="form-control">
+                    @error('senha') <small class="text-danger">{{ $message }}</small> @enderror
                 </div>
 
-                {{-- Botão --}}
-                <div class="text-end">
+                <div class="d-flex justify-content-between">
+                    <a href="{{ route('clientes.index') }}" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left-circle"></i> Voltar
+                    </a>
+
                     <button type="submit" class="btn btn-success">
-                        Salvar Cliente
+                        <i class="bi bi-check-circle"></i> Salvar
                     </button>
                 </div>
             </form>
