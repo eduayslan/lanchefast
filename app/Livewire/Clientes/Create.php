@@ -3,7 +3,6 @@
 namespace App\Livewire\Clientes;
 
 use App\Models\Cliente;
-use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 
 class Create extends Component
@@ -16,15 +15,15 @@ class Create extends Component
     public $senha;
 
     protected $rules = [
-        'nome' => 'required|min:3',
-        'endereco' => 'required|min:5',
-        'telefone' => 'required',
-        'cpf' => 'required|cpf|unique:clientes,cpf',
+        'nome' => 'required|string|max:255',
+        'endereco' => 'required|string|max:255',
+        'telefone' => 'required|string|max:15',
+        'cpf' => 'required|string|max:14|unique:clientes,cpf',
         'email' => 'required|email|unique:clientes,email',
-        'senha' => 'required|min:6',
+        'senha' => 'required|string|min:6',
     ];
 
-    public function salvar()
+    public function store()
     {
         $this->validate();
 
@@ -34,13 +33,13 @@ class Create extends Component
             'telefone' => $this->telefone,
             'cpf' => $this->cpf,
             'email' => $this->email,
-            'senha' => Hash::make($this->senha),
+            'senha' => bcrypt($this->senha),
         ]);
 
-        session()->flash('mensagem', 'Cliente cadastrado com sucesso!');
-        $this->reset();
-    }
+        session()->flash('message', 'Cliente criado com sucesso.');
 
+        return redirect()->route('clientes.index');
+    }
 
 
     public function render()

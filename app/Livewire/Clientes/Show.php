@@ -3,16 +3,15 @@
 namespace App\Livewire\Clientes;
 
 use App\Models\Cliente;
-use GuzzleHttp\Client;
 use Livewire\Component;
 
 class Show extends Component
 {
-    public $cliente;
+    public Cliente $cliente;
 
-    public function mount($id)
+    public function mount(Cliente $cliente)
     {
-        $this->cliente = Cliente::findOrFail($id);
+        $this->cliente = $cliente;
     }
 
     public function render()
