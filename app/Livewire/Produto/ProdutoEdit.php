@@ -5,11 +5,12 @@ namespace App\Livewire\Produto;
 use App\Models\Produto;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
 class ProdutoEdit extends Component
 {
-    use WithPagination;
+    use WithFileUploads;
 
     public $produto_id;
     public $nome;
@@ -18,9 +19,9 @@ class ProdutoEdit extends Component
     public $imagem_atual;
     public $imagem_nova;
 
-    public function mount($id)
+    public function mount($produto)
     {
-        $produto = Produto::findOrFail($id);
+        $produto = Produto::findOrFail($produto);
 
         $this->produto_id = $produto->id;
         $this->nome = $produto->nome;
